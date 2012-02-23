@@ -9,11 +9,22 @@ gem 'rails', '3.1.3'
 group :development, :test do
   gem 'mysql2', '> 0.3'
 end
+
 gem "authlogic"
 
 #javascript runtime
 gem 'execjs'
 gem 'therubyracer'
+
+#postmark app gem
+gem 'postmark-rails', '0.4.1'
+
+#delayed jobs
+gem 'delayed_job_active_record'
+
+#delayed jobs dependency
+gem "daemons"
+
 
 # Gems used only for assets and not required
 # in production environments by default.

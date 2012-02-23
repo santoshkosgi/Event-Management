@@ -44,5 +44,9 @@ module Event
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #postmark app
+    config.action_mailer.delivery_method   = :postmark
+    config.action_mailer.postmark_settings = { :api_key => "6e3449f4-31da-4697-9abe-cc85b7f99774" }
   end
 end
