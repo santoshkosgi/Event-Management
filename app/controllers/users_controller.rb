@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @users }
     end
+    #dbb
   end
 
   # GET /users/1
