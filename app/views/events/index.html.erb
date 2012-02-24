@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>
+      Event Name
+    </th>
+  </tr>
+  <% @events.each do |event| %>
+    <tr>
+      <td>
+        <%= link_to event.name, :controller => "events",:action => "show",:id => event.id %>
+      </td>
+    </tr>
+  <% end %>
+</table>    

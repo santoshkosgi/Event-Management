@@ -1,8 +1,9 @@
-Event::Application.routes.draw do
+EventManager::Application.routes.draw do
   get "home/index"
 
   resources :users
   resources :user_sessions
+  resources :events
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

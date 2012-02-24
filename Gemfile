@@ -16,6 +16,9 @@ gem "authlogic"
 gem 'execjs'
 gem 'therubyracer'
 
+#omniauth
+gem "omniauth"
+
 #postmark app gem
 gem 'postmark-rails', '0.4.1'
 
