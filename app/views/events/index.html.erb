@@ -9,6 +9,14 @@
       <td>
         <%= link_to event.name, :controller => "events",:action => "show",:id => event.id %>
       </td>
+      <td>
+        <% if is_registered_already? event.id %>
+          <p> registered already </p>
+        <% else %>
+          <%= link_to "Register", :controller => "events" ,:action => "register",:id => event.id,:method => "get" %>
+        <% end %>
+      </td>
+
     </tr>
   <% end %>
 </table>    

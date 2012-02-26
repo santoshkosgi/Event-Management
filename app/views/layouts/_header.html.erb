@@ -5,7 +5,9 @@
       <ul class="nav">
         <% if current_user %>
           <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
-          <li><%= link_to 'Add Event',:controller =>'events',:action => 'new' %></li>
+          <% if is_organisor? %>
+            <li><%= link_to 'Add Event',:controller =>'events',:action => 'new' %></li>
+          <% end %>
           <li><%= link_to "Profile", :action => "show", :controller => "users",:id => :current%></li>
           <li><%= link_to "Edit Profile",edit_user_path(:current)%></li>
           <li><%= link_to "Logout", logout_path %></li>
