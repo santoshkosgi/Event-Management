@@ -18,7 +18,13 @@ class AuthorizationsController < ApplicationController
       puts "auth created existing"
       flash[:notice] = "Welcome back #{omniauth['provider']} user"
       UserSession.create(@auth.user, true) #User is present. Login the user with his social account
-
+      client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
+      puts client
+      client.authorize_from_access(omniauth['extra']['access_token'].token,omniauth['extra']['access_token'].secret)
+      puts "authorized"
+      @connection = client.connections
+      puts @connection
+      puts "end"
       redirect_to root_url
     else
       puts "new auth"
