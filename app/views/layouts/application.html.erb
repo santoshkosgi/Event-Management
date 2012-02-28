@@ -1,9 +1,19 @@
 <html>
   <head>
     <%= yield :head %>
+
     <%= stylesheet_link_tag "bootstrap" %>
     <%= stylesheet_link_tag "colorbox" %>
     <%= stylesheet_link_tag "style" %>
+    <%= stylesheet_link_tag "jquery.ui.theme.css" %>
+    <%= stylesheet_link_tag "jquery.ui.datepicker.css" %>
+    <%= stylesheet_link_tag "jquery.ui.accordion.css" %>
+    <%= javascript_include_tag "jquery-1.7.1" %>
+    <%= javascript_include_tag "jquery.ui.core" %>
+    <%= javascript_include_tag "jquery.ui.widget" %>
+    <%= javascript_include_tag "jquery.ui.datepicker" %>
+    <%= javascript_include_tag "jquery.ui.accordion" %>
+    <%= stylesheet_link_tag "demos" %>
   </head>
 
   <body>
@@ -18,7 +28,14 @@
         <%= yield %>
       </div>
       <div class="span4">
-        <h3>Secondary content</h3>
+        <h1><%= Registration.count %> Tickets Sold </h1><br/>
+        <h3>Recently Booked</h3>
+
+        <% last = Registration.last(3) %>
+        <% last.each do |last|%>
+          <%= Event.find(last.event_id).name %><br/>
+        <% end %>
+
       </div>
     </div>
     </div>

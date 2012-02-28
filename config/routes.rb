@@ -1,7 +1,10 @@
 EventManager::Application.routes.draw do
   get "home/index"
 
-  resources :users
+  resources :users do
+    get 'order', :on => :collection
+  end
+
   resources :user_sessions
   resources :events do
     get 'register', :on => :collection
@@ -10,6 +13,9 @@ EventManager::Application.routes.draw do
   # first created -> highest priority.
 
   match "logout" => 'user_sessions#destroy'
+
+  match "/auth/:provider/callback", :controller => "authorizations", :action => "create"
+  match "/auth/failure", :controller => "authorizations", :action => "failure"
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

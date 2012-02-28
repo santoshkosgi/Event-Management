@@ -43,12 +43,15 @@ class ApplicationController < ActionController::Base
 
       #puts registered.event_id
 
-      if @registered
-        return true
-      else
+      if @registered.empty?
+        puts "record exists"
         return false
+
+      else
+        puts "record doesn't exists"
+        return true
       end
 
-  end
+    end
 
 end

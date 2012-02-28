@@ -10,10 +10,12 @@
           <% end %>
           <li><%= link_to "Profile", :action => "show", :controller => "users",:id => :current%></li>
           <li><%= link_to "Edit Profile",edit_user_path(:current)%></li>
-          <li><%= link_to "Logout", logout_path %></li>
+          <li><%= link_to "Current Orders",:action => "order",:controller => "users" %>
+          <li><%= link_to "Signout",logout_path%></li>
         <% else %>
           <li><%= link_to 'Sign In', :controller=> "user_sessions", :action=> "new" %></li>
           <li><%= link_to 'Sign Up', new_user_path %></li>
+          <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
         <% end %>
       </ul>
     </div>

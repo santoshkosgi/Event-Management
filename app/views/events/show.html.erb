@@ -1,1 +1,42 @@
-<h1><%= @event.name %> </h1>
+<div id="accordion">
+<table>
+  <tr>
+    <td>
+      <div><h3><a href="#">Name</a></h3>
+      <%= @event.name %></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div>
+      <h3><a href="#">Description</a></h3>
+      <%= @event.description %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div>
+      <h3><a href="#">Location</a></h3>
+      <%= @event.location %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div>
+      <h3><a href="#">Date</a></h3>
+      <%= @event.date %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div>
+      <h3><a href="#">Time</a></h3>
+      <%= @event.time %>:<%=@event.min%>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>

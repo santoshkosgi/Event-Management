@@ -5,7 +5,7 @@ class EventsController < ApplicationController
 
   # filter for checking the role of user
   before_filter :require_organisor, :except => [:show,:index,:register]
-
+  skip_before_filter :require_login, :only => [:index,:show]
   def index
     @events = Event.all
   end

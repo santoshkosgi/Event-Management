@@ -80,4 +80,10 @@ class UsersController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  #for current orders
+  def order
+    @order = Registration.where("user_id = ?",current_user.id)
+  end
+
 end

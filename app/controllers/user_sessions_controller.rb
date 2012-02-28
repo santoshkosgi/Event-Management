@@ -18,5 +18,6 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.find
     @user_session.destroy
     redirect_to root_url
+
   end
 end

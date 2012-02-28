@@ -1,0 +1,9 @@
+<% if @order.empty? %>
+  <h1>You do not have any current orders</h1>
+  <%= link_to "Click Here To Find Events",:controller => "events",:action => "index" %>
+<% else %>
+  <h1>Booked Tickets </h1>
+  <% @order.each do |order| %>
+    <%= Event.find(order.event_id).name %><br/>
+  <% end %>
+<% end %> 

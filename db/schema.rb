@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120224141821) do
+ActiveRecord::Schema.define(:version => 20120227131751) do
+
+  create_table "authorizations", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -33,10 +41,11 @@ ActiveRecord::Schema.define(:version => 20120224141821) do
     t.string   "name"
     t.text     "description"
     t.date     "date"
-    t.time     "time"
+    t.integer  "time"
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "min"
   end
 
   create_table "registrations", :force => true do |t|

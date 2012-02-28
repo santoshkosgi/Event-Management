@@ -1,4 +1,30 @@
-<table>
+<% if current_user %>
+  <table>
+    <tr>
+      <th>
+        Event Name
+      </th>
+    </tr>
+    <% @events.each do |event| %>
+      <tr>
+        <td>
+          <%= link_to event.name, :controller => "events",:action => "show",:id => event.id %>
+        </td>
+        <td>
+          <% if is_registered_already? event.id %>
+            <p> registered already </p>
+          <% else %>
+            <%= link_to "Register", :controller => "events" ,:action => "register",:id => event.id,:method => "get" %>
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </table>
+
+<% else %>
+
+  <table>
   <tr>
     <th>
       Event Name
@@ -10,13 +36,9 @@
         <%= link_to event.name, :controller => "events",:action => "show",:id => event.id %>
       </td>
       <td>
-        <% if is_registered_already? event.id %>
-          <p> registered already </p>
-        <% else %>
           <%= link_to "Register", :controller => "events" ,:action => "register",:id => event.id,:method => "get" %>
-        <% end %>
       </td>
-
     </tr>
   <% end %>
-</table>    
+  </table>
+<% end %>    

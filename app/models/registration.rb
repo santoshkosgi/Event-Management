@@ -11,7 +11,7 @@ class Registration < ActiveRecord::Base
 
     #puts registered.event_id
 
-    if @registered
+    if @registered.empty?
       return true
     else
       return false

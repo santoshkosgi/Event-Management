@@ -17,8 +17,7 @@ gem 'execjs'
 gem 'therubyracer'
 
 #omniauth
-gem "omniauth"
-
+gem 'omniauth', '0.2.6'
 #postmark app gem
 gem 'postmark-rails', '0.4.1'
 
@@ -28,6 +27,8 @@ gem 'delayed_job_active_record'
 #delayed jobs dependency
 gem "daemons"
 
+#for accessing linkedin
+gem "linkedin"
 
 # Gems used only for assets and not required
 # in production environments by default.
