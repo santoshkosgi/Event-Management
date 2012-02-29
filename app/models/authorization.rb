@@ -13,4 +13,5 @@ class Authorization < ActiveRecord::Base
     user ||= User.create_from_hash(hash)
     Authorization.create(:user_id => user.id, :uid => hash['uid'], :provider => hash['provider'])
   end
+
 end

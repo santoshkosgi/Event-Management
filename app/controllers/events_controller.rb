@@ -20,6 +20,8 @@ class EventsController < ApplicationController
     @user  = current_user
     @registration = Registration.new(:event_id => @event.id,:user_id => @user.id)
     if @registration.save
+      text = "i am attending #{@event.name}"
+      $client.add_share(:comment => text)
       puts "success fully"
     else
       puts "not success fully"
