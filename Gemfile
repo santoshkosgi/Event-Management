@@ -24,6 +24,9 @@ gem 'postmark-rails', '0.4.1'
 #delayed jobs
 gem 'delayed_job_active_record'
 
+#to export to excel
+gem 'to_xls', '~> 1.0.0'
+
 #delayed jobs dependency
 gem "daemons"
 

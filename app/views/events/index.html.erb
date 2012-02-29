@@ -41,4 +41,6 @@
     </tr>
   <% end %>
   </table>
-<% end %>    
+  <%= link_to 'Export to Excel', url_for(:controller => "events",:action => "index",:format => 'xls') %>
+<% end %>
+<%= link_to 'Export to Excel', url_for(:controller => "events",:action => "index",:format => 'xls') %>

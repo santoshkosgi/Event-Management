@@ -8,6 +8,13 @@ class EventsController < ApplicationController
   skip_before_filter :require_login, :only => [:index,:show]
   def index
     @events = Event.all
+    respond_to do |format|
+      format.html
+      format.xls {
+        send_data @events.to_xls
+        return # prevet Rails to seek for index.xls.erb
+      }
+    end
   end
 
   def new
