@@ -14,8 +14,15 @@ gem "authlogic"
 
 #javascript runtime
 gem 'execjs'
-gem 'therubyracer'
+gem "therubyracer", "~> 0.9.10"
 
+#rails-best-practices
+gem "rails_best_practices"
+
+#gem foe allowing permissions
+gem "cancan"
+
+#client side templating
 #omniauth
 gem 'omniauth', '0.2.6'
 #postmark app gem
@@ -32,6 +39,10 @@ gem "daemons"
 
 #for accessing linkedin
 gem "linkedin"
+
+#paypal gem
+gem "paypal_adaptive"
+
 
 # Gems used only for assets and not required
 # in production environments by default.

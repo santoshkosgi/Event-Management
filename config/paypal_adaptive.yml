@@ -1,0 +1,7 @@
+development:
+  environment: "sandbox"
+  username: "santos_1330954528_biz_api1.gmail.com"
+  password: "1330954552"
+  signature: "ADV4H2sRdlQ2v8jmcbprb0f8DJp0AEl8VAunTzP24ByG74U-atQAL7mU"
+  application_id: "APP-80W284485P519543T"
+  ssl_cert_file: /home/santosh/Downloads/cert_key_pem.txt

@@ -2,10 +2,9 @@ class EventsController < ApplicationController
 
   #many to many relation between users and events
 
-
   # filter for checking the role of user
-  before_filter :require_organisor, :except => [:show,:index,:register]
-  skip_before_filter :require_login, :only => [:index,:show]
+  before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1]
+  skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1]
   def index
     @events = Event.all
     respond_to do |format|
@@ -14,6 +13,8 @@ class EventsController < ApplicationController
         send_data @events.to_xls
         return # prevet Rails to seek for index.xls.erb
       }
+      format.json {render :json => @events}
+      format.xml {render :xml => @events}
     end
   end
 
@@ -21,14 +22,31 @@ class EventsController < ApplicationController
     @event = Event.new
   end
 
+  def getemail
+    @user = User.new
+  end
+
+  def create1
+    puts "in create1"
+    puts params[:user][:email]
+
+    $email = params[:user][:email]
+    puts $email
+    redirect_to gotemail_path
+
+  end
+
   def register
 
     @event = Event.find(params[:id])
     @user  = current_user
     @registration = Registration.new(:event_id => @event.id,:user_id => @user.id)
+    @registration.pay
     if @registration.save
-      text = "i am attending #{@event.name}"
-      $client.add_share(:comment => text)
+      if $omniauth
+        text = "i am attending #{@event.name}"
+        $client.add_share(:comment => text)
+      end
       puts "success fully"
     else
       puts "not success fully"
@@ -42,12 +60,24 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to @event
     else
-      render :action => "new"
+      render "new"
     end
   end
 
   def show
   @event =Event.find(params[:id])
+  end
+
+  def edit
+
+  end
+
+  def update
+
+  end
+
+  def return
+    redirect_to root_url
   end
 
   private

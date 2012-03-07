@@ -5,15 +5,20 @@ EventManager::Application.routes.draw do
     get 'order', :on => :collection
   end
 
-  resources :user_sessions
+  resources :user_sessions,:only => [:new, :create, :destroy,:index]
   resources :events do
     get 'register', :on => :collection
+    post 'create1', :on => :collection
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
   match "logout" => 'user_sessions#destroy'
 
+  match "return" => 'events#return'
+
+  match 'getemail' =>"events#getemail"
+  match 'gotemail' =>"authorizations#gotemail"
   match "/auth/:provider/callback", :controller => "authorizations", :action => "create"
   match "/auth/failure", :controller => "authorizations", :action => "failure"
 

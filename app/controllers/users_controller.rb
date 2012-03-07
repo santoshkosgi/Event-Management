@@ -48,7 +48,7 @@ class UsersController < ApplicationController
         UserMailer.delay.registration_confirmation(@user)
         format.html { redirect_to @user, notice: 'User was successfully created.' }
       else
-        format.html { render action: "new" }
+        format.html { render "new" }
       end
     end
   end
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
+        format.html { render "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

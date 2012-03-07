@@ -36,6 +36,7 @@ GEM
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
     builder (3.0.0)
+    cancan (1.6.7)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -43,6 +44,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    colored (1.2)
     daemons (1.1.8)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
@@ -63,6 +65,7 @@ GEM
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.5)
+    jsonschema (2.0.2)
     libv8 (3.3.10.4)
     linkedin (0.3.6)
       hashie (~> 1.2.0)
@@ -116,12 +119,17 @@ GEM
       oa-more (= 0.2.6)
       oa-oauth (= 0.2.6)
       oa-openid (= 0.2.6)
+    paypal_adaptive (0.2.8)
+      json (~> 1.6.0)
+      jsonschema (~> 2.0.0)
+      rake (~> 0.8)
     polyglot (0.3.3)
     postmark (0.9.10)
     postmark-rails (0.4.1)
       actionmailer
       postmark (>= 0.9.0)
       rake
+    progressbar (0.10.0)
     pyu-ruby-sasl (0.0.3.3)
     rack (1.3.6)
     rack-cache (1.1)
@@ -143,6 +151,13 @@ GEM
       activesupport (= 3.1.3)
       bundler (~> 1.0)
       railties (= 3.1.3)
+    rails_best_practices (1.8.0)
+      activesupport
+      colored
+      erubis
+      i18n
+      progressbar
+      sexp_processor
     railties (3.1.3)
       actionpack (= 3.1.3)
       activesupport (= 3.1.3)
@@ -166,6 +181,7 @@ GEM
       railties (~> 3.1.0)
       sass (~> 3.1.10)
       tilt (~> 1.3.2)
+    sexp_processor (3.1.0)
     spreadsheet (0.6.8)
       ruby-ole (>= 1.0)
     sprockets (2.0.3)
@@ -194,6 +210,7 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic
+  cancan
   coffee-rails (~> 3.1.1)
   daemons
   delayed_job_active_record
@@ -202,10 +219,12 @@ DEPENDENCIES
   linkedin
   mysql2 (> 0.3)
   omniauth (= 0.2.6)
+  paypal_adaptive
   postmark-rails (= 0.4.1)
   rails (= 3.1.3)
+  rails_best_practices
   sass-rails (~> 3.1.5)
-  therubyracer
+  therubyracer (~> 0.9.10)
   to_xls (~> 1.0.0)
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
