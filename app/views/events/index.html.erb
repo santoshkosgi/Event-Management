@@ -41,6 +41,42 @@
     </tr>
   <% end %>
   </table>
-  <%= link_to 'Export to Excel', url_for(:controller => "events",:action => "index",:format => 'xls') %>
+  <div class="data">
+
+  </div>
 <% end %>
-<%= link_to 'Export to Excel', url_for(:controller => "events",:action => "index",:format => 'xls') %>
+<table class="main">
+<tr>
+</tr>
+</table>
+
+  <%= link_to 'Export to Excel', url_for(:controller => "events",:action => "index",:format => 'xls') %>
+
+
+
+
+<%= will_paginate @events %>
+
+
+<script>
+  $(document).ready(function () {
+
+      $("[href='/events?page=1']").hide()
+      $("[href='/events?page=2']").hide()
+      $("[href='/events?page=3']").hide()
+      $(".next_page").show()
+      $(".previous_page").hide()
+      $(".current").hide()
+
+      $(".next_page").click(function(e) {
+        e.preventDefault()
+        var x= $(".current").text()
+        x = parseInt(x)
+        x = x.toString()
+        $.ajax({
+          url: '/events?page='+(parseInt($(".current").text())+1).toString(),
+          dataType: "script"
+        })
+      })
+  });
+</script>

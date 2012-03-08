@@ -6,14 +6,15 @@ class EventsController < ApplicationController
   before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1]
   skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1]
   def index
-    @events = Event.all
+
+    @events = Event.paginate(:page => params[:page])
     respond_to do |format|
       format.html
       format.xls {
         send_data @events.to_xls
         return # prevet Rails to seek for index.xls.erb
       }
-      format.json {render :json => @events}
+      format.js
       format.xml {render :xml => @events}
     end
   end

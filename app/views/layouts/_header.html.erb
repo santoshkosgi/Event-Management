@@ -13,7 +13,7 @@
           <li><%= link_to "Current Orders",:action => "order",:controller => "users" %>
           <li><%= link_to "Signout",logout_path%></li>
         <% else %>
-          <li><%= link_to 'Sign In', :controller=> "user_sessions", :action=> "new" %></li>
+          <li><%= link_to 'Sign In', {:controller=> "user_sessions", :action=> "new"},:class => "signin" %></li>
           <li><%= link_to 'Sign Up', new_user_path %></li>
           <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
         <% end %>
@@ -21,3 +21,8 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    $('.signin').colorbox({width:"55%", height:"55%"})
+  })
+</script>

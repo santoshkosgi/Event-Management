@@ -22,6 +22,9 @@ gem "rails_best_practices"
 #gem foe allowing permissions
 gem "cancan"
 
+#for pagination
+gem 'will_paginate', '~> 3.0'
+
 #client side templating
 #omniauth
 gem 'omniauth', '0.2.6'

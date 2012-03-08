@@ -1,0 +1,14 @@
+alert("hi")
+$(".current").text((parseInt($(".current").text())+1).toString())
+
+  <% @events.each do |event| %>
+   <% if current_user %>
+    <% if is_registered_already? event.id %>
+    $('.main tr:last').after('<tr><td><%= link_to event.name, :controller => "events",:action => "show",:id => event.id %></td><td><p>registered already</p></td></tr>')
+    <% else %>
+    $('.main tr:last').after('<tr><td><%= link_to event.name, :controller => "events",:action => "show",:id => event.id %></td><td><%= link_to "Register", :controller => "events" ,:action => "register",:id =>event.id,:method => "get" %></td></tr>')
+    <% end %>
+  <% else %>
+    $('.main tr:last').after('<tr><td><%= link_to event.name, :controller => "events",:action => "show",:id => event.id %></td><td><%= link_to "Register", :controller => "events" ,:action => "register",:id =>event.id,:method => "get" %></td></tr>')
+    <% end %>
+ <% end %>
