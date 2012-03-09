@@ -4,13 +4,22 @@ class UserSessionsController < ApplicationController
   def new
     @user_session = UserSession.new
   end
+
+  def index
+
+  end
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Login successful!"
-      redirect_to :action => "index"
+      respond_to do |format|
+        format.js
+        format.html
+      end
     else
-      render :new
+      respond_to do |format|
+        format.js
+        format.html
+      end
     end
   end
 
@@ -18,6 +27,5 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.find
     @user_session.destroy
     redirect_to root_url
-
   end
 end

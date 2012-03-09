@@ -1,0 +1,11 @@
+$(".error").html("")
+<% if @user_session.errors.full_messages[0] %>
+  var error = '<ul class="alert-message block-message error">'
+    <% @user_session.errors.full_messages.each do |msg| %>
+      error += '<li><%= msg %></li>'
+    <% end %>
+  error += '</ul>'
+  $(".error").html(error)
+<% else %>
+window.location = '/'
+<% end %>
