@@ -11,39 +11,17 @@ group :development, :test do
 end
 
 gem "authlogic"
-
-#javascript runtime
 gem 'execjs'
 gem "therubyracer", "~> 0.9.10"
-
-#rails-best-practices
 gem "rails_best_practices"
-
-#gem foe allowing permissions
 gem "cancan"
-
-#for pagination
 gem 'will_paginate', '~> 3.0'
-
-#client side templating
-#omniauth
 gem 'omniauth', '0.2.6'
-#postmark app gem
 gem 'postmark-rails', '0.4.1'
-
-#delayed jobs
-gem 'delayed_job_active_record'
-
-#to export to excel
+gem 'delayed_job_active_record' #delayed jobs
 gem 'to_xls', '~> 1.0.0'
-
-#delayed jobs dependency
 gem "daemons"
-
-#for accessing linkedin
 gem "linkedin"
-
-#paypal gem
 gem "paypal_adaptive"
 
 
@@ -56,6 +34,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+gem "addressable","~>2.2.4"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

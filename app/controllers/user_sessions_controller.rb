@@ -3,11 +3,15 @@ class UserSessionsController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
   def new
     @user_session = UserSession.new
+    respond_to do |format|
+      format.html {render :layout => nil}
+    end
   end
 
   def index
 
   end
+
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save

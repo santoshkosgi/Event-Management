@@ -3,11 +3,15 @@ class EventsController < ApplicationController
   #many to many relation between users and events
 
   # filter for checking the role of user
-  before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1]
-  skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1]
+  before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1,:search]
+  skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1,:search]
   def index
-
-    @events = Event.paginate(:page => params[:page])
+    if(params[:search])
+      @events = Event.search(params[:search])
+    else
+      @events = Event.paginate(:page => params[:page])
+      @search = true
+    end
     respond_to do |format|
       format.html
       format.xls {
@@ -69,6 +73,9 @@ class EventsController < ApplicationController
   @event =Event.find(params[:id])
   end
 
+  def search
+
+  end
   def edit
 
   end

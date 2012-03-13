@@ -52,12 +52,9 @@
 
   <%= link_to 'Export to Excel', url_for(:controller => "events",:action => "index",:format => 'xls') %>
 
-
-
-
+<% if @search%>
 <%= will_paginate @events %>
-
-
+<% end %>
 <script>
   $(document).ready(function () {
 
