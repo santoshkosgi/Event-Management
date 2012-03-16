@@ -25,6 +25,7 @@ gem "linkedin"
 gem "paypal_adaptive"
 gem 'thinking-sphinx' #sphinx search engine
 gem "ts-delayed-delta" #delta indexes
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git' #gem rails admin
 
 # Gems used only for assets and not required
 # in production environments by default.
