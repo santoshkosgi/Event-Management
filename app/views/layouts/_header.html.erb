@@ -7,6 +7,8 @@
           <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
           <% if is_organisor? %>
             <li><%= link_to 'Add Event',:controller =>'events',:action => 'new' %></li>
+            <li><%= link_to 'Add Coupon Code',:controller =>'coupons',:action => 'new' %></li>
+            <li><%= link_to 'Coupon Code',:controller =>'coupons',:action => 'index' %></li>
           <% end %>
           <li><%= link_to "Profile", :action => "show", :controller => "users",:id => :current%></li>
           <li><%= link_to "Edit Profile",edit_user_path(:current)%></li>

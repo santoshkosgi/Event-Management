@@ -1,4 +1,6 @@
 EventManager::Application.routes.draw do
+  resources :coupons
+
   get "home/index"
 
   resources :users do
@@ -9,6 +11,7 @@ EventManager::Application.routes.draw do
   resources :events do
     get 'register', :on => :collection
     post 'create1', :on => :collection
+    post 'attend' ,:on => :collection
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

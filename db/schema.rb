@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120227131751) do
+ActiveRecord::Schema.define(:version => 20120315124607) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(:version => 20120227131751) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "coupons", :force => true do |t|
+    t.string   "code"
+    t.integer  "discount"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "status"
+  end
+
+  add_index "coupons", ["event_id"], :name => "index_coupons_on_event_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -46,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120227131751) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "min"
+    t.boolean  "delta",       :default => true, :null => false
   end
 
   create_table "registrations", :force => true do |t|
@@ -53,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20120227131751) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "amount"
   end
 
   add_index "registrations", ["event_id"], :name => "fk_events"

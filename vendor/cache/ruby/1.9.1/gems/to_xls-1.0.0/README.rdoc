@@ -1,0 +1,88 @@
+= to_xls gem
+
+This gem transform an Array or Hash into a excel file using the spreadsheet gem.
+
+== Usage
+
+  @users = User.all
+
+  @users.to_xls
+  @users.to_xls(:name => "Users")      # specifies the Sheet name (by default Sheet1)
+  @users.to_xls(:headers => false)     # don't include headers
+  @users.to_xls(:columns => [:name, :role]) # include only these columns, on this order
+  @users.to_xls(:columns => [:name, {:company => [:name, :address]}]) # able to pick associations/called methods
+  @users.to_xls(:columns => [:name, {:company => [:name, :address]}], :headers => [:name, :company, :address]) # provide better names for the associated columns
+
+
+== Example of use in Rails
+
+In the controller where you want to export to excel, add the format.xls line.
+
+  class UserController < ApplicationController
+
+    def index
+      @users = User.all
+
+      respond_to do |format|
+        format.html
+        format.xml { render :xml => @users }
+        format.xls { send_data @users.to_xls, :filename => 'users.xls' }
+      end
+    end
+  end
+
+== Requirements
+
+On rails, you might want to modify config/initializers/mime_types.rb and register a custom mime type there:
+
+  Mime::Type.register "application/vnd.ms-excel", :xls  
+
+== Dependencies
+
+* spreadsheet gem (automatically included if you require to_xls)
+
+== Installing on rails 2.x
+
+Include next gems in your environment.rb config file:
+
+    config.gem 'to_xls'
+
+Then execute
+
+    rake gems:install
+
+
+== Installing on rails 3.x
+
+In your Gemfile
+
+    gem 'to_xls'
+
+Then execute
+
+    bundle install
+
+== ToXml::ArrayWriter
+
+You can export to a file or spreadsheet book using the internal ToXml::ArrayWriter class:
+
+    ToXls::ArrayWriter.new(users, :name => 'Users').write_io(file) # writes to a given file
+    ToXls::ArrayWriter.new(users, :name => 'Users').write_book(book) # writes to a spreadsheet book (adds a new sheet)
+
+The options of ArrayWriter.new(array, options) are the same as in to_xls.
+
+== Contributing to to_xls
+ 
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+== Copyright
+
+Copyright (c) 2011 Enrique García Cota. See LICENSE.txt for
+further details.
+

@@ -1,0 +1,10 @@
+<% if @coupons.empty? %>
+alert("bye")
+<%else%>
+<% @coupons.each do |event| %>
+alert("<%= event.code%>")
+<% if event.status%>
+$("#valid").val("<%= event.code%>")
+<%end%>
+<%end%>
+<%end%>

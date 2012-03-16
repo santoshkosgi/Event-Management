@@ -2,13 +2,12 @@ class Event < ActiveRecord::Base
   self.per_page = 3
   has_many :registrations
   has_many :users, :through => :registrations
+  has_many :coupons
 
-  def self.search(search)
-    puts "in search"
-    if search
-      find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
-    else
-      find(:all)
-    end
+  define_index do
+    puts "in index"
+    indexes :name
+    indexes description
+    set_property :delta => :delayed
   end
 end

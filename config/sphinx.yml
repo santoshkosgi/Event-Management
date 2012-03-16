@@ -1,0 +1,7 @@
+development:
+  config_file: "/home/santosh/rails/eventmanagement/config/development.sphinx.conf"
+  searchd_log_file: "/home/santosh/rails/eventmanagement/log/searchd.log"
+  query_log_file: "/home/santosh/rails/eventmanagement/log/searchd.query.log"
+  pid_file: "/home/santosh/rails/eventmanagement/log/searchd.development.pid"
+  port: 9312
+  min_prefix_len: 3

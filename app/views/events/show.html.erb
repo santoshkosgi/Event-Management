@@ -40,3 +40,39 @@
   </tr>
 </table>
 </div>
+<% if is_registered_already? @event.id %>
+   <p> registered already </p>
+<% else %>
+<%= form_tag coupons_path, :method => 'get',:id=>"form1" do %>
+  <p id="coupon" style="font-family:arial;color:red;font-size:20px;">have a coupon code?</p>
+  <div id="code"><p>enter the code</p>
+    <input type=text name="coupon"><input type=submit id="codecheck" value="Apply" class="btn primary">
+  </div>
+<% end %>
+
+<%= form_tag "/events/attend", :method => 'post' do %>
+    <%= hidden_field_tag(:event_id,@event.id) %>
+    <%=select_tag(:num, options_for_select((0..40).collect {|s| ["#{s}", s]}))%>
+    <%= hidden_field_tag(:valid,"notvalid") %>
+    <%= submit_tag("Register",:class=>"btn primary") %>
+<% end %>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#code").hide()
+    $("#coupon").click(function(){
+      $(this).hide()
+      $("#code").show()
+    })
+    $("#form1").submit(function(e){
+      e.preventDefault()
+        $.ajax({
+          url: $('#form1').attr('action'),
+          dataType: "script",
+          type: "get",
+          data: $('#form1').serialize()
+        })
+
+    })
+  })
+  </script>

@@ -23,7 +23,8 @@ gem 'to_xls', '~> 1.0.0'
 gem "daemons"
 gem "linkedin"
 gem "paypal_adaptive"
-
+gem 'thinking-sphinx' #sphinx search engine
+gem "ts-delayed-delta" #delta indexes
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -53,4 +54,6 @@ gem "addressable","~>2.2.4"
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
+  gem 'cucumber-rails' #cucumber rails
+  gem "database_cleaner"
 end

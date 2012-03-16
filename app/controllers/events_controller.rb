@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   #many to many relation between users and events
 
   # filter for checking the role of user
-  before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1,:search]
+  before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1,:search,:attend]
   skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1,:search]
   def index
     if(params[:search])
@@ -59,6 +59,34 @@ class EventsController < ApplicationController
     end
 
   end
+
+  def attend
+    @event=Event.find(params[:event_id])
+    @user  = current_user
+
+    @valid=params[:valid]
+    @num=params[:num]
+    if @valid == "notvalid"
+    amount = 300*@num.to_f
+    else
+    @coupon = Coupon.find_by_code(@valid)
+    amount = 300*@num.to_f-((300*@num.to_f)*(@coupon.discount/100))
+    @coupon.update_attributes(:status=>false)
+    end
+    @registration = Registration.new(:event_id => @event.id,:user_id => @user.id,:amount=>amount)
+    if @registration.save
+      if $omniauth
+        text = "i am attending #{@event.name}"
+        $client.add_share(:comment => text)
+      end
+      puts "success fully"
+    else
+      puts "not success fully"
+      redirect_to :controller => "events",:action => "index"
+    end
+  end
+
+
 
   def create
     @event = Event.new(params[:event])
