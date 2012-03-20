@@ -19,6 +19,12 @@
         </td>
 
       </tr>
+      <%if @search%>
+    <%else%>
+    <tr>
+      <td><%= event.excerpts.description.html_safe %></td>
+    </tr>
+    <%end%>
     <% end %>
   </table>
 
@@ -35,10 +41,17 @@
       <td>
         <%= link_to event.name, :controller => "events",:action => "show",:id => event.id %>
       </td>
+
       <td>
           <%= link_to "Register", :controller => "events" ,:action => "register",:id => event.id,:method => "get" %>
       </td>
     </tr>
+    <%if @search%>
+    <%else%>
+    <tr>
+      <td><%= event.excerpts.description.html_safe %></td>
+    </tr>
+    <%end%>
   <% end %>
   </table>
   <div class="data">
@@ -61,6 +74,9 @@
       $("[href='/events?page=1']").hide()
       $("[href='/events?page=2']").hide()
       $("[href='/events?page=3']").hide()
+      $("[href='/events?page=4']").hide()
+      $("[href='/events?page=5']").hide()
+      $("[href='/events?page=6']").hide()
       $(".next_page").show()
       $(".previous_page").hide()
       $(".current").hide()

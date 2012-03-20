@@ -942,6 +942,9 @@ textarea[readonly] {
   line-height: 18px;
   color: #bfbfbf;
 }
+.match
+{ background-color: #F96800; }
+
 .help-inline {
   padding-left: 5px;
   *position: relative;
