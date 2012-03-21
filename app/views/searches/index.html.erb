@@ -1,0 +1,13 @@
+<table>
+<% @events.each do |event| %>
+  <tr>
+    <td><%= link_to event.excerpts.name.html_safe, :controller => "events",:action => "show",:id => event.id %></td>
+    <td><%= event.excerpts.description.html_safe %></td>
+  </tr>
+<% end %>
+<% @users.each do |user| %>
+<tr>
+  <td><%= user.excerpts.name.html_safe %></td>
+</tr>
+<% end %>
+</table>

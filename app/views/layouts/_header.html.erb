@@ -4,24 +4,45 @@
       <%= link_to "Event Registration",root_url,:class => "brand" %>
       <ul class="nav">
         <% if current_user %>
-          <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
           <% if is_organisor? %>
-            <li><%= link_to 'Add Event',:controller =>'events',:action => 'new' %></li>
-            <li><%= link_to 'Add Coupon Code',:controller =>'coupons',:action => 'new' %></li>
-            <li><%= link_to 'Coupon Code',:controller =>'coupons',:action => 'index' %></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Events <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
+                  <li><%= link_to 'Add Event',:controller =>'events',:action => 'new' %></li>
+                </ul>
+            </li>
+          <% else %>
+            <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
           <% end %>
-          <li><%= link_to "Profile", :action => "show", :controller => "users",:id => :current%></li>
-          <li><%= link_to "Edit Profile",edit_user_path(:current)%></li>
-          <li><%= link_to "Current Orders",:action => "order",:controller => "users" %>
+        <% end %>
+        <% if current_user %>
+          <% if is_organisor? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Coupon Codes <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to 'Add Coupon Code',:controller =>'coupons',:action => 'new' %></li>
+                <li><%= link_to 'Coupon Code',:controller =>'coupons',:action => 'index' %></li>
+              </ul>
+            </li>
+          <% end %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Profile <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", :action => "show", :controller => "users",:id => :current%></li>
+                <li><%= link_to "Edit Profile",edit_user_path(:current)%></li>
+                <li><%= link_to "Current Orders",:action => "order",:controller => "users" %>
+              </ul>
+          </li>
           <li><%= link_to "Signout",logout_path%></li>
-          <%= form_tag events_path, :method => 'get' do %>
+          <%= form_tag searches_path, :method => 'get' do %>
               <li><%= text_field_tag :search %></li>
           <% end %>
         <% else %>
           <li><%= link_to 'Sign In', {:controller=> "user_sessions", :action=> "new"},:class => "signin" %></li>
           <li><%= link_to 'Sign Up', new_user_path %></li>
           <li><%= link_to 'Events',:controller =>'events',:action => 'index' %></li>
-            <%= form_tag events_path, :method => 'get' do %>
+            <%= form_tag searches_path, :method => 'get' do %>
               <li><%= text_field_tag :search %></li>
             <% end %>
         <% end %>
@@ -31,13 +52,14 @@
 </div>
 <script>
   $(document).ready(function () {
+    $('.dropdown-toggle').dropdown()
     $("#search").width(150)
     $('.signin').colorbox({width:"70%", height:"70%"})
     $("#search").keypress(function(){
         $("#search").animate({
-             width: "300px"
-        });
+             width: "270px"
     })
+        });
     $("#search").focusout(function(){
       $("#search").animate({
              width: "150px"

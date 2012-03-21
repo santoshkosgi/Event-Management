@@ -5,7 +5,6 @@ class Event < ActiveRecord::Base
   has_many :coupons
 
   define_index do
-    puts "in index"
     indexes :name
     indexes description
     set_property :delta => :delayed

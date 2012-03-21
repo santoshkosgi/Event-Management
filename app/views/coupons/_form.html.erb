@@ -11,19 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
+  <div class="clearfix">
+    <%= f.label :code %>
+    <div class="input">
+      <%= f.text_field :code %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :discount %><br />
-    <%= f.text_field :discount %>
+  <div class="clearfix">
+    <%= f.label :discount %>
+    <div class="input">
+      <%= f.text_field :discount %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :event %><br />
-    <%= f.collection_select(:event_id,Event.all,:id,:name)%>
+  <div class="clearfix">
+    <%= f.label :event %>
+    <div class="input">
+      <%= f.collection_select(:event_id,Event.all,:id,:name)%>
+    </div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class=>"btn primary"%>
   </div>
 <% end %>

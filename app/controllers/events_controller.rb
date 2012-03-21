@@ -63,17 +63,18 @@ class EventsController < ApplicationController
   def attend
     @event=Event.find(params[:event_id])
     @user  = current_user
-
     @valid=params[:valid]
     @num=params[:num]
     if @valid == "notvalid"
-    amount = 300*@num.to_f
+    @amount = 300*@num.to_f
     else
     @coupon = Coupon.find_by_code(@valid)
-    amount = 300*@num.to_f-((300*@num.to_f)*(@coupon.discount/100))
+    @amount = 300*@num.to_f
+    @discount = @amount*@coupon.discount/100
+    @amount = @amount-@discount
     @coupon.update_attributes(:status=>false)
     end
-    @registration = Registration.new(:event_id => @event.id,:user_id => @user.id,:amount=>amount)
+    @registration = Registration.new(:event_id => @event.id,:user_id => @user.id,:amount=>@amount)
     if @registration.save
       if $omniauth
         text = "i am attending #{@event.name}"

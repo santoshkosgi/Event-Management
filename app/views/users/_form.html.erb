@@ -1,3 +1,4 @@
+<div class="user-form1">
 <%= form_for(@user) do |f| %>
   <% if @user.errors.full_messages[0] %>
     <ul class="alert-message block-message error">
@@ -54,3 +55,4 @@
     <%= f.submit :class=>"btn primary" %>
   </div>
 <% end %>
+</div>

@@ -6,6 +6,11 @@ class User < ActiveRecord::Base
   has_many :users, :through => :registrations
   has_many :authorizations, :dependent => :destroy
 
+  define_index do
+    indexes :name
+    set_property :delta => :delayed
+  end
+
   def self.create_from_hash(hash)
     puts "in user.rb"
     user = User.new(:name => hash['user_info']['name'],:email =>$email )

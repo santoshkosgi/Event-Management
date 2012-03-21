@@ -41,26 +41,18 @@
       <table>
         <tr>
           <td>
-            <%=f.select :time, options_for_select((0..23).collect {|s| ["#{s}", s]}),:html_options => {:class => "span1"}%>
+            <%=f.select :time, options_for_select((0..23).collect {|s| ["#{s}", s]}),{},:class => "span3"%>
           </td>
           <td>
             <p>:<p>
           </td>
           <td>
-            <%=f.select :min, options_for_select((0..59).collect {|s| ["#{s}", s]})%>
+            <%=f.select :min, options_for_select((0..59).collect {|s| ["#{s}", s]}),{},:class => "span3"%>
           </td>
         </tr>
       </table>
     </div>
   </div>
-
-  <div class="clearfix">
-    <%= f.label :minutes %>
-    <div class="input">
-      <%=f.select :min, options_for_select((0..59).collect {|s| ["#{s}", s]})%>
-    </div>
-  </div>
-
   <div class="actions">
     <%= f.submit "Submit", :class=>"btn primary" %>
   </div>

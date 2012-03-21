@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
 
   before_filter :require_login
-  skip_before_filter :require_login, :only => [:index,:new,:create,:destroy]
+  skip_before_filter :require_login, :only => [:index,:destroy]
   helper_method :current_user,:is_organisor?,:is_registered_already?
 
   private

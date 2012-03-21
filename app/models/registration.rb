@@ -2,9 +2,6 @@ class Registration < ActiveRecord::Base
   belongs_to :event
   belongs_to :user
   before_save :is_registered_already?
-
-
-
   #paypal
 
 
