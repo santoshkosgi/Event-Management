@@ -1,3 +1,8 @@
+<% flash.each do |key, msg| %>
+  <ul class="alert-message block-message error">
+  <li><%= content_tag :div, msg, :id => key %></li>
+  </ul>
+<% end %>
 <% content_for :head do %>
   <title>Event Registration</title>
 <% end %>

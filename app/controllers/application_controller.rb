@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
+
   protect_from_forgery
+  helper_method :current_user,:is_organisor?,:is_registered_already?
 
-
-   helper_method :current_user,:is_organisor?,:is_registered_already?
-
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "Access denied."
+    redirect_to root_url
+  end
   private
+
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -35,20 +39,15 @@ class ApplicationController < ActionController::Base
     end
 
     def is_registered_already?(event)
-
       @registered = Registration.where("event_id=? AND user_id =?",event,current_user.id)
-
       #puts registered.event_id
-
       if @registered.empty?
         puts "record exists"
         return false
-
       else
         puts "record doesn't exists"
         return true
       end
-
     end
 
 end
