@@ -2,9 +2,11 @@
 alert("bye")
 <%else%>
 <% @coupons.each do |event| %>
-alert("<%= event.code%>")
+<% if event.event_id == @event%>
 <% if event.status%>
+alert("<%= event.code%>")
 $("#valid").val("<%= event.code%>")
 <%end%>
+<% end %>
 <%end%>
 <%end%>

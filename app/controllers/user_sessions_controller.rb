@@ -1,11 +1,10 @@
 class UserSessionsController < ApplicationController
-
+  before_filter :require_login, :except => [:index]
   skip_before_filter :require_login, :only => [:new, :create]
+  layout Proc.new { |controller| controller.request.xhr? ? nil : 'application' }
+
   def new
     @user_session = UserSession.new
-    respond_to do |format|
-      format.html {render :layout => nil}
-    end
   end
 
   def index
@@ -32,4 +31,5 @@ class UserSessionsController < ApplicationController
     @user_session.destroy
     redirect_to root_url
   end
+
 end

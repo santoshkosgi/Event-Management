@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   #many to many relation between users and events
 
   # filter for checking the role of user
+  before_filter :require_login, :except => [:index]
   before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1,:search,:attend]
   skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1,:search]
   def index
@@ -90,6 +91,7 @@ class EventsController < ApplicationController
 
 
   def create
+    params[:event][:created_by] = current_user.id
     @event = Event.new(params[:event])
     if @event.save
       redirect_to @event

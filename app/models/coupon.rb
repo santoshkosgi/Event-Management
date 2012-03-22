@@ -12,5 +12,4 @@ class Coupon < ActiveRecord::Base
     self.status=true
     return true
   end
-
 end

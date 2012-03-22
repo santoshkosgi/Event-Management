@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120321104616) do
+ActiveRecord::Schema.define(:version => 20120322071525) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20120321104616) do
     t.datetime "updated_at"
     t.integer  "min"
     t.boolean  "delta",       :default => true, :null => false
+    t.integer  "created_by"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

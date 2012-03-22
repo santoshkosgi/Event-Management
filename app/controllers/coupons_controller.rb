@@ -1,9 +1,12 @@
 class CouponsController < ApplicationController
   # GET /coupons
   # GET /coupons.json
+  before_filter :require_login
+  load_and_authorize_resource
   def index
     if(params[:coupon])
       @coupons = Coupon.search(params[:coupon])
+      @event =params[:event_id]
     else
     @coupons = Coupon.all
     end
@@ -44,14 +47,20 @@ class CouponsController < ApplicationController
   # POST /coupons.json
   def create
     @coupon = Coupon.new(params[:coupon])
-
-    respond_to do |format|
-      if @coupon.save
-        format.html { redirect_to @coupon, notice: 'Coupon was successfully created.' }
-        format.json { render json: @coupon, status: :created, location: @coupon }
-      else
+    puts @coupon.event.created_by == current_user.id
+    if @coupon.event.created_by == current_user.id
+      respond_to do |format|
+        if @coupon.save
+          format.html { redirect_to @coupon, notice: 'Coupon was successfully created.' }
+          format.json { render json: @coupon, status: :created, location: @coupon }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @coupon.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
         format.html { render action: "new" }
-        format.json { render json: @coupon.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -48,6 +48,7 @@
   <p id="coupon" style="font-family:arial;color:red;font-size:20px;">have a coupon code?</p>
   <div id="code"><p>enter the code</p>
     <input type=text name="coupon"><input type=submit id="codecheck" value="Apply" class="btn primary">
+    <%= hidden_field_tag(:event_id,@event.id) %>
   </div>
 <% end %>
 

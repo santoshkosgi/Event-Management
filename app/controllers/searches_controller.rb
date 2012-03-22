@@ -1,4 +1,5 @@
 class SearchesController < InheritedResources::Base
+  before_filter :require_login, :except => [:index]
   def index
     if(params[:search])
       @events = Event.search(params[:search])

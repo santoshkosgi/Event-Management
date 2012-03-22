@@ -5,7 +5,6 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.skip_before_filter :require_login
   config.site_title = "Event Manager"
 
   # Set the link url for the title. For example, to take
