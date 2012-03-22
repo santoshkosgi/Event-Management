@@ -6,6 +6,7 @@ class EventsController < ApplicationController
   before_filter :require_login, :except => [:index]
   before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1,:search,:attend]
   skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1,:search]
+
   def index
     if(params[:search])
       @events = Event.search(params[:search])
@@ -39,11 +40,9 @@ class EventsController < ApplicationController
     $email = params[:user][:email]
     puts $email
     redirect_to gotemail_path
-
   end
 
   def register
-
     @event = Event.find(params[:id])
     @user  = current_user
     @registration = Registration.new(:event_id => @event.id,:user_id => @user.id)
@@ -58,7 +57,6 @@ class EventsController < ApplicationController
       puts "not success fully"
       redirect_to :controller => "events",:action => "index"
     end
-
   end
 
   def attend
@@ -104,9 +102,6 @@ class EventsController < ApplicationController
   @event =Event.find(params[:id])
   end
 
-  def search
-
-  end
   def edit
 
   end

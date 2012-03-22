@@ -2,7 +2,6 @@ class AuthorizationsController < ApplicationController
    before_filter :require_login, :only => [:destroy]
 
   def create
-
     $omniauth = request.env['omniauth.auth'] #this is where you get all the data from your provider through omniauth
     puts "befor find_from_hash"
     puts $omniauth

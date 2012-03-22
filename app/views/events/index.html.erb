@@ -70,13 +70,13 @@
 <% end %>
 <script>
   $(document).ready(function () {
-
-      $("[href='/events?page=1']").hide()
-      $("[href='/events?page=2']").hide()
-      $("[href='/events?page=3']").hide()
-      $("[href='/events?page=4']").hide()
-      $("[href='/events?page=5']").hide()
-      $("[href='/events?page=6']").hide()
+      var i,q,s
+      q = "/events?page="
+      for(i=0;i<200;i++)
+      {
+        s=q+i.toString()
+        $("[href='"+s+"']").hide()
+      }
       $(".next_page").show()
       $(".previous_page").hide()
       $(".current").hide()

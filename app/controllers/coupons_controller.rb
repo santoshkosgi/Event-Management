@@ -3,12 +3,13 @@ class CouponsController < ApplicationController
   # GET /coupons.json
   before_filter :require_login
   load_and_authorize_resource
+
   def index
     if(params[:coupon])
       @coupons = Coupon.search(params[:coupon])
       @event =params[:event_id]
     else
-    @coupons = Coupon.all
+      @coupons = Coupon.all
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +17,6 @@ class CouponsController < ApplicationController
     end
   end
 
-  # GET /coupons/1
-  # GET /coupons/1.json
   def show
     @coupon = Coupon.find(params[:id])
 
@@ -27,8 +26,6 @@ class CouponsController < ApplicationController
     end
   end
 
-  # GET /coupons/new
-  # GET /coupons/new.json
   def new
     @coupon = Coupon.new
 

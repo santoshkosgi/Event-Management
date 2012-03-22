@@ -1,14 +1,9 @@
 class UserSessionsController < ApplicationController
-  before_filter :require_login, :except => [:index]
-  skip_before_filter :require_login, :only => [:new, :create]
+  before_filter :require_login, :except => [:new, :create]
   layout Proc.new { |controller| controller.request.xhr? ? nil : 'application' }
 
   def new
     @user_session = UserSession.new
-  end
-
-  def index
-
   end
 
   def create
