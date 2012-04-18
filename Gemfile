@@ -26,7 +26,6 @@ gem "paypal_adaptive"
 gem 'thinking-sphinx' #sphinx search engine
 gem "ts-delayed-delta" #delta indexes
 gem "activeadmin"
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -18,13 +18,18 @@ class AuthorizationsController < ApplicationController
       flash[:notice] = "Welcome back #{$omniauth['provider']} user"
       UserSession.create(@auth.user, true) #User is present. Login the user with his social account
       if $omniauth['provider'] == "linked_in"
-      $client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
-      puts @client
-      $client.authorize_from_access($omniauth['extra']['access_token'].token,$omniauth['extra']['access_token'].secret)
-      puts "authorized"
-      @connection = $client.connections
-      puts @connection
-      puts $client.add_share(:comment => "This is Test Update")
+        $client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
+        puts $client
+        $client.authorize_from_access($omniauth['extra']['access_token'].token,$omniauth['extra']['access_token'].secret)
+        puts "authorized"
+        $connections = $client.connections
+        Rails.logger.debug($connections.class)
+        $connections.all.each do |connection|
+          Rails.logger.info(connection.id)
+          Rails.logger.info(connection.class)
+        end
+
+        puts $client.add_share(:comment => "This is Test Update")
       end
       puts "end"
       redirect_to root_url
@@ -46,9 +51,9 @@ class AuthorizationsController < ApplicationController
       puts @client
       $client.authorize_from_access($omniauth['extra']['access_token'].token,$omniauth['extra']['access_token'].secret)
       puts "authorized"
-      @connection = $client.connections
-      puts @connection
-      puts $client.add_share(:comment => "This is Test Update")
+      $connections = $client.connections
+      puts $connections
+      puts $client.add_share(:comment => "Logged to Elegato")
       end
       redirect_to root_url
   end

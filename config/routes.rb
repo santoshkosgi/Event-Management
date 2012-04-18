@@ -16,6 +16,7 @@ EventManager::Application.routes.draw do
   resources :user_sessions,:only => [:new, :create, :destroy,:index]
   resources :events do
     get 'register', :on => :collection
+    get 'attendees', :on => :collection
     post 'create1', :on => :collection
     post 'attend' ,:on => :collection
   end

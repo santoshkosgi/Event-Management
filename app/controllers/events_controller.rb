@@ -48,7 +48,7 @@ class EventsController < ApplicationController
     @registration = Registration.new(:event_id => @event.id,:user_id => @user.id)
     @registration.pay
     if @registration.save
-      if $omniauth
+      if $omniauth['provider'] == 'linked_in'
         text = "i am attending #{@event.name}"
         $client.add_share(:comment => text)
       end
@@ -86,6 +86,10 @@ class EventsController < ApplicationController
     end
   end
 
+  def attendees
+    @event =Event.find(params[:id])
+    @users = @event.users
+  end
 
 
   def create

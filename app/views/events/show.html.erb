@@ -1,64 +1,61 @@
-<div id="accordion">
-<table>
-  <tr>
-    <td>
-      <div><h3>Name</h3>
-      <%= @event.name %></div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <div>
-      <h3>Description</h3>
-      <%= @event.description %>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <div>
-      <h3>Location</h3>
-      <%= @event.location %>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <div>
-      <h3>Date</h3>
-      <%= @event.date %>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <div>
-      <h3>Time</h3>
-      <%= @event.time %>:<%=@event.min%>
-      </div>
-    </td>
-  </tr>
-</table>
-</div>
-<% if current_user %>
-<% if is_registered_already? @event.id %>
-   <p> registered already </p>
-<% else %>
-<%= form_tag coupons_path, :method => 'get',:id=>"form1" do %>
-  <p id="coupon" style="font-family:arial;color:red;font-size:20px;">have a coupon code?</p>
-  <div id="code"><p>enter the code</p>
-    <input type=text name="coupon"><input type=submit id="codecheck" value="Apply" class="btn primary">
-    <%= hidden_field_tag(:event_id,@event.id) %>
-  </div>
+<% content_for :pagename do %>
+  <%= @event.name %>
 <% end %>
+<h3>When and Where </h3>
+<%= @event.date %> <%= "at" %> <%= @event.time %>:<%=@event.min%>
+</br>
+<h3>Venue</h3>
+<%= @event.location %>
+</br>
+<h3>Event Details</h3>
+<%= @event.description %></br>
 
-<%= form_tag "/events/attend", :method => 'post' do %>
-    <%= hidden_field_tag(:event_id,@event.id) %>
-    <%=select_tag(:num, options_for_select((0..40).collect {|s| ["#{s}", s]}))%>
-    <%= hidden_field_tag(:valid,"notvalid") %>
-    <%= submit_tag("Register",:class=>"btn primary") %>
-<% end %>
-<% end %>
+<% if current_user %>
+  <% if is_registered_already? @event.id %>
+   <p> registered already </p>
+  <% else %>
+    <br/>
+    <h3>Ticket Information</h3>
+    <table>
+      <tr>
+        <th>Ticket Type</th>
+        <th>Sales End</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+      <tr>
+        <td>General</td>
+        <td><%= @event.date %></td>
+        <td>300</td>
+        <%= form_tag "/events/attend", :method => 'post' do %>
+            <%= hidden_field_tag(:event_id,@event.id) %>
+            <td><%=select_tag(:num, options_for_select((0..40).collect {|s| ["#{s}", s]}))%></td></tr></table>
+            <%= hidden_field_tag(:valid,"notvalid") %>
+            <%= submit_tag("Register",:class=>"btn primary") %>
+        <% end %>
+        <%= form_tag coupons_path, :method => 'get',:id=>"form1" do %>
+          <a href="#" id="coupon" style="font-family:arial;color:red;font-size:20px;">have a coupon code?</a>
+          <div id="code"><p>enter the code</p>
+            <input type=text name="coupon"><input type=submit id="codecheck" value="Apply" class="btn primary">
+            <%= hidden_field_tag(:event_id,@event.id) %>
+          </div>
+        <% end %>
+  <% end %>
+  <% if is_organisor? %>
+    <%= link_to "Check The Attendees", :controller => "events" ,:action => "attendees",:id => @event.id %>
+  <% end %>
+  <h3>People From Your Connections Attending This Event: </h3>
+  <% $connections.all.each do |connection| %>
+    <% user = Authorization.find_by_uid(connection.id) %>
+    <% if user.nil? %>
+    <% else %>
+      <% r = Registration.where("event_id=? AND user_id =?",@event.id,user.user_id) %>
+      <% if r.nil? %>
+      <% else %>
+        <%= User.find_by_id(user.user_id).name %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>
 <script type="text/javascript">
   $(document).ready(function () {
