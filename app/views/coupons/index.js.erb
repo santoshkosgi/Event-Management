@@ -1,12 +1,12 @@
 <% if @coupons.empty? %>
-alert("bye")
+alert("coupon not valid")
 <%else%>
-<% @coupons.each do |event| %>
-<% if event.event_id == @event%>
-<% if event.status%>
-alert("<%= event.code%>")
-$("#valid").val("<%= event.code%>")
-<%end%>
-<% end %>
-<%end%>
+  <% @coupons.each do |coupon| %>
+    <%if  coupon.status %>
+      <%if @event == coupon.event_id.to_s %>
+        alert(<%= coupon.code%>)
+        $("#valid").val("<%= coupon.code%>")
+      <%end%>
+    <% end %>
+  <%end%>
 <%end%>

@@ -3,33 +3,32 @@ class AuthorizationsController < ApplicationController
 
   def create
     $omniauth = request.env['omniauth.auth'] #this is where you get all the data from your provider through omniauth
+    @omniauth = $omniauth
     puts "befor find_from_hash"
     puts $omniauth
     @auth = Authorization.find_from_hash($omniauth)
+    puts @auth
 
     #raise @auth.inspect
     if current_user
       puts "current user logged in"
-      flash[:notice] = "Successfully added #{$omniauth['provider']} authentication"
-      current_user.authorizations.create(:provider => $omniauth['provider'], :uid => $omniauth['uid']) #Add an auth to existing user
+      flash[:notice] = "Successfully added #{@omniauth['provider']} authentication"
+      current_user.authorizations.create(:provider => @omniauth['provider'], :uid => @omniauth['uid'],:token => @omniauth['extra']['access_token'].token ,:secret =>@omniauth['extra']['access_token'].secret) #Add an auth to existing user
       redirect_to edit_user_path(:current)
     elsif @auth
+      if @auth.token == nil
+        @auth.update_attributes(:token => @omniauth['extra']['access_token'].token ,:secret =>@omniauth['extra']['access_token'].secret)
+      puts "token updated"
+      end
       puts "auth created existing"
-      flash[:notice] = "Welcome back #{$omniauth['provider']} user"
+      flash[:notice] = "Welcome back #{@omniauth['provider']} user"
       UserSession.create(@auth.user, true) #User is present. Login the user with his social account
-      if $omniauth['provider'] == "linked_in"
-        $client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
-        puts $client
-        $client.authorize_from_access($omniauth['extra']['access_token'].token,$omniauth['extra']['access_token'].secret)
+      if @omniauth['provider'] == "linked_in"
+        client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
+        puts client
+        client.authorize_from_access(@omniauth['extra']['access_token'].token,@omniauth['extra']['access_token'].secret)
         puts "authorized"
-        $connections = $client.connections
-        Rails.logger.debug($connections.class)
-        $connections.all.each do |connection|
-          Rails.logger.info(connection.id)
-          Rails.logger.info(connection.class)
-        end
-
-        puts $client.add_share(:comment => "This is Test Update")
+        puts client.add_share(:comment => "Logged to Elegato")
       end
       puts "end"
       redirect_to root_url
@@ -47,13 +46,11 @@ class AuthorizationsController < ApplicationController
       UserSession.create(@new_auth.user, true) #Log the authorizing user in.
       puts "usersession saved"
       if $omniauth['provider'] == "linked_in"
-      $client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
-      puts @client
-      $client.authorize_from_access($omniauth['extra']['access_token'].token,$omniauth['extra']['access_token'].secret)
+      client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
+      puts client
+      client.authorize_from_access($omniauth['extra']['access_token'].token,$omniauth['extra']['access_token'].secret)
       puts "authorized"
-      $connections = $client.connections
-      puts $connections
-      puts $client.add_share(:comment => "Logged to Elegato")
+      puts client.add_share(:comment => "Logged to Elegato")
       end
       redirect_to root_url
   end

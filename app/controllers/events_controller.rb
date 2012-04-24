@@ -45,13 +45,18 @@ class EventsController < ApplicationController
   def register
     @event = Event.find(params[:id])
     @user  = current_user
-    @registration = Registration.new(:event_id => @event.id,:user_id => @user.id)
-    @registration.pay
+    @registration = Registration.new(:event_id => @event.id,:user_id => @user.id,:amount => 300)
+    @registration.pay #paypal
     if @registration.save
-      if $omniauth['provider'] == 'linked_in'
+      if current_user.authorizations.nil?
+
+      else
         text = "i am attending #{@event.name}"
-        $client.add_share(:comment => text)
+        client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
+        client.authorize_from_access(current_user.authorizations[0].token,current_user.authorizations[0].secret)
+        client.add_share(:comment => text)
       end
+
       puts "success fully"
     else
       puts "not success fully"
@@ -75,9 +80,13 @@ class EventsController < ApplicationController
     end
     @registration = Registration.new(:event_id => @event.id,:user_id => @user.id,:amount=>@amount)
     if @registration.save
-      if $omniauth
+      if current_user.authorizations.nil?
+
+      else
         text = "i am attending #{@event.name}"
-        $client.add_share(:comment => text)
+        client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv')
+        client.authorize_from_access(current_user.authorizations[0].token,current_user.authorizations[0].secret)
+        client.add_share(:comment => text)
       end
       puts "success fully"
     else

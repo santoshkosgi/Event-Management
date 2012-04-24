@@ -7,7 +7,7 @@ class CouponsController < ApplicationController
   def index
     if(params[:coupon])
       @coupons = Coupon.search(params[:coupon])
-      @event =params[:event_id]
+      @event = params[:event_id]
     else
       @coupons = Coupon.all
     end

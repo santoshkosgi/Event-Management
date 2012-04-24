@@ -4,7 +4,6 @@ class Registration < ActiveRecord::Base
   before_save :is_registered_already?
   #paypal
 
-
   def pay
     pay_request = PaypalAdaptive::Request.new
       data = {
@@ -43,5 +42,4 @@ class Registration < ActiveRecord::Base
     end
 
   end
-
 end
