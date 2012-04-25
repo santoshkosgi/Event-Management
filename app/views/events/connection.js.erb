@@ -1,3 +1,4 @@
+$("#connections").html("")
 <% if current_user.authorizations.empty?%>
 <% else %>
     <% client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv') %>

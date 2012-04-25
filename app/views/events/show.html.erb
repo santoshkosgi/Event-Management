@@ -67,7 +67,7 @@
   <% end %>
 
   <div id="connections"></div>
-  <div id="start"></div>
+  <div id="start" style="float:right;width: 180px;padding:0px 175px 0px 0px"></div>
 
   <%= form_tag "/events/connection", :method => 'get',:id=>"form_connections" do %>
       <input type=submit id="codecheck" value="check attendees from connection" class="btn primary">
@@ -95,12 +95,12 @@
     })
 
     $("#form_connections").submit(function(e){
-      $("#start").html("started")
+      $("#start").html("<img src='/assets/ajax-loader.gif' />")
       e.preventDefault()
         $.ajax({
           url: $('#form_connections').attr('action'),
           complete: function() {
-            $('#start').html('completed')
+            $('#start').html('')
           },
           dataType: "script",
           type: "get",
