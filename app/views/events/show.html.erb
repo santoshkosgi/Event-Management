@@ -44,7 +44,7 @@
   <% if is_organisor? %>
     <%= link_to "Check The Attendees", :controller => "events" ,:action => "attendees",:id => @event.id %>
   <% end %>
-  <% if current_user.authorizations.nil?%>
+  <% if current_user.authorizations.empty?%>
     <h3>Please SignIn through LinkedIn to see people from your connections attending this event</h3>
   <% else %>
     <h3>People From Your Connections Attending This Event: </h3>

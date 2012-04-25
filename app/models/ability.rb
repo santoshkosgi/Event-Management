@@ -4,7 +4,8 @@ class Ability
   def initialize(user)
     user ||= User.new
     if user.role == 1
-      can :read
+      can :read, Coupon do |coupon|
+        coupon.event.created_by == user.id
       can :update, Coupon do |coupon|
         coupon.event.created_by == user.id
       end
