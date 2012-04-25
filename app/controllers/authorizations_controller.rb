@@ -5,7 +5,7 @@ class AuthorizationsController < ApplicationController
     $omniauth = request.env['omniauth.auth'] #this is where you get all the data from your provider through omniauth
     @omniauth = $omniauth
     puts "befor find_from_hash"
-    puts $omniauth
+    #puts $omniauth
     @auth = Authorization.find_from_hash($omniauth)
     puts @auth
 
@@ -28,7 +28,7 @@ class AuthorizationsController < ApplicationController
         puts client
         client.authorize_from_access(@omniauth['extra']['access_token'].token,@omniauth['extra']['access_token'].secret)
         puts "authorized"
-        puts client.add_share(:comment => "Logged to Elegato")
+        #puts client.add_share(:comment => "Logged to Elegato")
       end
       puts "end"
       redirect_to root_url

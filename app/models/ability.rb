@@ -6,6 +6,7 @@ class Ability
     if user.role == 1
       can :read, Coupon do |coupon|
         coupon.event.created_by == user.id
+      end
       can :update, Coupon do |coupon|
         coupon.event.created_by == user.id
       end

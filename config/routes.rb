@@ -19,6 +19,7 @@ EventManager::Application.routes.draw do
     get 'attendees', :on => :collection
     post 'create1', :on => :collection
     post 'attend' ,:on => :collection
+    get 'connection', :on => :collection
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

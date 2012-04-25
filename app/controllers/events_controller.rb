@@ -4,7 +4,7 @@ class EventsController < ApplicationController
 
   # filter for checking the role of user
   before_filter :require_login, :except => [:index]
-  before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1,:search,:attend]
+  before_filter :require_organisor, :except => [:show,:index,:register,:getemail,:create1,:search,:attend,:connection]
   skip_before_filter :require_login, :only => [:index,:show,:getemail,:create1,:search]
 
   def index
@@ -100,6 +100,11 @@ class EventsController < ApplicationController
     @users = @event.users
   end
 
+  def connection # for accessing linkedin connections
+    @event =Event.find(params[:event_id])
+    puts "in connections"
+
+  end
 
   def create
     params[:event][:created_by] = current_user.id

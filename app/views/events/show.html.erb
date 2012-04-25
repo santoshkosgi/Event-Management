@@ -65,6 +65,15 @@
       <% end %>
     <% end %>
   <% end %>
+
+  <div id="connections"></div>
+  <div id="start"></div>
+
+  <%= form_tag "/events/connection", :method => 'get',:id=>"form_connections" do %>
+      <input type=submit id="codecheck" value="check attendees from connection" class="btn primary">
+      <%= hidden_field_tag(:event_id,@event.id) %>
+  <% end %>
+
 <% end %>
 
 <script type="text/javascript">
@@ -74,8 +83,8 @@
       $(this).hide()
       $("#code").show()
     })
+
     $("#form1").submit(function(e){
-      alert("in submit")
       e.preventDefault()
         $.ajax({
           url: $('#form1').attr('action'),
@@ -83,7 +92,21 @@
           type: "get",
           data: $('#form1').serialize()
         })
-      alert("after submit")
     })
+
+    $("#form_connections").submit(function(e){
+      $("#start").html("started")
+      e.preventDefault()
+        $.ajax({
+          url: $('#form_connections').attr('action'),
+          complete: function() {
+            $('#start').html('completed')
+          },
+          dataType: "script",
+          type: "get",
+          data: $('#form_connections').serialize()
+        })
+    })
+
   })
   </script>
