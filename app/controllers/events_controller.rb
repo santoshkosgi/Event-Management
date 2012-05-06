@@ -98,6 +98,13 @@ class EventsController < ApplicationController
   def attendees
     @event =Event.find(params[:id])
     @users = @event.users
+    respond_to do |format|
+      format.html
+      format.xls {
+        send_data @events.to_xls
+        return # prevet Rails to seek for index.xls.erb
+      }
+      end
   end
 
   def connection # for accessing linkedin connections

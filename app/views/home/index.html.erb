@@ -5,8 +5,51 @@
 
 <% end %>
 <% content_for :head do %>
-  <title>Event Registration</title>
+  <title>Elegato</title>
 <% end %>
 <% content_for :pagename do %>
-  Event Registration
+  Elegato
+<% end %>
+<% content_for :header do %>
+  <h1>Elegato</h1>
+<% end %>
+<div class="hero-unit">
+<h3>Elegato makes it a breeze to manage events online. Create & sell tickets, offer discounts, collect attendee data during registration, and a lot more!</h3></div>
+<br/><br/><br/>
+<div>
+<h3>How it Works</h3>
+<br/>
+<h3><p>Elegato lets you setup your event and registrations in minutes. Set it up at your personalized event page. Define the nature of your event, setup your tickets and you're good to go.</p>
+<p>Get paid online. Stay updated with real-time registration notifications. Export registration data anytime you want. Managing registrations is dirt simple with Elegato.</p>
+</h3>
+</div>
+<% content_for :twitterfeed do %>
+  <script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+  <script>
+      new TWTR.Widget({
+        version: 2,
+        type: 'profile',
+        rpp: 4,
+        interval: 30000,
+        width: 220,
+        height: 300,
+        theme: {
+          shell: {
+            background: '#333333',
+            color: '#ffffff'
+          },
+          tweets: {
+            background: '#000000',
+            color: '#ffffff',
+            links: '#4aed05'
+          }
+        },
+        features: {
+          scrollbar: false,
+          loop: false,
+          live: false,
+          behavior: 'all'
+        }
+      }).render().setUser('Elegato1').start();
+  </script>
 <% end %>

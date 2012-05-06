@@ -16,3 +16,4 @@
 <% end %>
 </table>
 <h1>Total number of attendees is <%= @users.count %></h1>
+ <%= link_to 'Export to Excel', url_for(:controller => "events",:action => "attendees",:format => 'xls') %>

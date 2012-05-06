@@ -1,6 +1,36 @@
-<% content_for :pagename do %>
-  <%= @event.name %>
+<% content_for :header do %>
+  <h1><%= @event.name %></h1>
 <% end %>
+<div style="float:right">
+<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 250,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('<%= @event.name%>').start();
+</script>
+</div>
 <h3>When and Where </h3>
 <%= @event.date %> <%= "at" %> <%= @event.time %>:<%=@event.min%>
 </br>
@@ -10,6 +40,7 @@
 <h3>Event Details</h3>
 <%= @event.description %></br>
 
+<h3>Registration</h3>
 <% if current_user %>
   <% if is_registered_already? @event.id %>
    <p> registered already </p>
@@ -46,34 +77,21 @@
   <% end %>
   <% if current_user.authorizations.empty?%>
     <h3>Please SignIn through LinkedIn to see people from your connections attending this event</h3>
-  <% else %>
-    <h3>People From Your Connections Attending This Event: </h3>
-    <% client = LinkedIn::Client.new('sup72rpsh43n', 'wYzneYSh0nOMHnHv') %>
-    <% auth = Authorization.find_by_user_id(current_user.id)%>
-    <% client.authorize_from_access(auth.token,auth.secret) %>
-    <% connections = client.connections %>
-    <% connections.all.each do |connection| %>
-      <% user = Authorization.find_by_uid(connection.id) %>
-      <% if user.nil? %>
-      <% else %>
-        <% r = Registration.where("event_id=? AND user_id =?",@event.id,user.user_id) %>
-        <% if r.empty? %>
-        <% else %>
-          <%= User.find_by_id(user.user_id).name %>
-          <br/>
-        <% end %>
-      <% end %>
-    <% end %>
   <% end %>
-
+  <div id="connectionheader"></div>
   <div id="connections"></div>
   <div id="start" style="float:right;width: 180px;padding:0px 175px 0px 0px"></div>
-
+  <% if current_user.authorizations.empty?%>
+  <% else %>
   <%= form_tag "/events/connection", :method => 'get',:id=>"form_connections" do %>
-      <input type=submit id="codecheck" value="check attendees from connection" class="btn primary">
+      <input type=submit id="codecheck" value="check attendees from your connection" class="btn primary">
       <%= hidden_field_tag(:event_id,@event.id) %>
   <% end %>
-
+  <%end%>
+<% end %>
+<% content_for :contactor do %>
+  <button class="btn btn-info">Add to Google Calender</button><br/><br/>
+  <button class="btn btn-info">Contact Organisor</button>
 <% end %>
 
 <script type="text/javascript">

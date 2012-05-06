@@ -54,6 +54,6 @@ gem "addressable","~>2.2.4"
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
-  gem 'cucumber-rails' #cucumber rails
+  gem 'cucumber-rails',:require => false #cucumber rails
   gem "database_cleaner"
 end
