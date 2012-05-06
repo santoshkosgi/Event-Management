@@ -7,10 +7,10 @@
 new TWTR.Widget({
   version: 2,
   type: 'profile',
-  rpp: 4,
+  rpp: 3,
   interval: 30000,
-  width: 250,
-  height: 300,
+  width: 220,
+  height: 250,
   theme: {
     shell: {
       background: '#333333',
@@ -89,8 +89,8 @@ new TWTR.Widget({
   <% end %>
   <%end%>
 <% end %>
-<% content_for :contactor do %>
-  <button class="btn btn-info">Add to Google Calender</button><br/><br/>
+<% content_for :contactorg do %>
+  <button class="btn btn-info" id="addcal">Add to Google Calender</button><br/><br/>
   <button class="btn btn-info">Contact Organisor</button>
 <% end %>
 
@@ -126,5 +126,108 @@ new TWTR.Widget({
         })
     })
 
+
+
   })
+  </script>
+
+
+
+  <link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/south-street/jquery-ui.css' />
+	<link rel='stylesheet' type='text/css' href='http://tardate.com/addtocal/jquery.addtocal.css' />
+	<!-- hcalendar is only included for an hCalendar event markup example. It is NOT required for jquery.addtocal -->
+	<link rel="profile" href="http://microformats.org/profile/hcalendar">
+  <style type='text/css'>
+
+    /* styles here are purely for the purpose of the demo and are not essential for addtocal functionality */
+    body {
+    	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    	font-size: 12px;
+    	margin: 0 50px;
+    }
+    h1 {
+    }
+    p.description {
+    }
+    .addtocal {
+      background-color:#CCCCCC;
+      display: inline-block;
+      margin:0 1em 0 0;
+      padding:10px;
+      text-align:center;
+      width: 220px;
+    }
+    .addtocal:hover {
+      background-color:#DDDDDD;
+    }
+    .addtocal .summary {
+      font-size: 14px;
+      font-weight:bold;
+    }
+    .addtocal .date {
+      font-weight:bold;
+    }
+    .addtocal .description {
+    }
+
+  </style>
+
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js'></script>
+
+  <script type='text/javascript' src='http://tardate.com/addtocal/libs/rfc3339date.js'></script>
+  <script type='text/javascript' src='http://tardate.com/addtocal/jquery.addtocal.js'></script>
+
+  <script type='text/javascript'>
+  $(document).ready(function() {
+
+    $('#addcal').AddToCal({
+      /* ical and vcal require an ics or vcs file to be served.
+       * Since we don't have a server for this demo, these features are disabled.
+       * As a result the 30boxes, iCal and vCalendar menu links will not appear
+       */
+      icalEnabled:false,
+      vcalEnabled:false,
+
+      /* getEventDetails is the most critical function to provide.
+       * It is called when a user selects a calendar to add an event to.
+       * The element parameter is the jQuery object for the event invoked.
+       * You must return an object packed with the relevant event details.
+       * How you determine the event attributes will depend on your page.
+       * The example below illustrates how to handle two formats of event markup.
+       */
+      getEventDetails: function( element ) {
+        var
+          dtstart_element = element.find('.dtstart'), start,
+          dtend_element = element.find('.dtend'), end,
+          title_element = element.find('.summary'), title,
+          details_element = element.find('.description'), details;
+
+        // in this demo, we attempt to get hCalendar attributes or otherwise just dummy the values
+        start = dtstart_element.length ? dtstart_element.attr('title') : new Date();
+        if(dtend_element.length) {
+          end = dtend_element.attr('title');
+        } else {
+          end = new Date();
+          end.setTime(end.getTime() + 60 * 60 * 1000);
+        }
+        title ="<%= @event.name%>"
+        details = "<%= @event.description%>"
+
+        // return the required event structure
+        return {
+          webcalurl: null,
+          icalurl: null,
+          vcalurl: null,
+          start: start,
+          end: end,
+          title: title,
+          details: details,
+          location: null,
+          url: null
+          };
+      },
+    });
+
+  });
   </script>
