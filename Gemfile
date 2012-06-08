@@ -26,6 +26,7 @@ gem "paypal_adaptive"
 gem 'thinking-sphinx' #sphinx search engine
 gem "ts-delayed-delta" #delta indexes
 gem "activeadmin"
+gem "heroku" # for heroku deployment
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -56,4 +57,8 @@ group :test do
   gem 'turn', '0.8.2', :require => false
   gem 'cucumber-rails',:require => false #cucumber rails
   gem "database_cleaner"
+end
+
+group :production do
+  gem 'pg'
 end
